@@ -98,7 +98,6 @@
 				04415C43252764BB00377393 /* Model */,
 				04415C1E252763A400377393 /* AppDelegate.swift */,
 				04415C20252763A400377393 /* SceneDelegate.swift */,
-				04415C22252763A400377393 /* ViewController.swift */,
 				04415C24252763A400377393 /* Main.storyboard */,
 				04415C2A252763A500377393 /* Assets.xcassets */,
 				04415C2C252763A500377393 /* LaunchScreen.storyboard */,
@@ -137,6 +136,7 @@
 		04415C45252764D800377393 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04415C582527698900377393 /* Cells */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -161,6 +161,7 @@
 		04415C492527654A00377393 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				04415C22252763A400377393 /* ViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -179,6 +180,13 @@
 				04415C55252766B600377393 /* LoadingView.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		04415C582527698900377393 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
