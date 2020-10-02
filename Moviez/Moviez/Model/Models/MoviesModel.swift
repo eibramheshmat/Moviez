@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+struct MoviesModel: Codable {
+    var movies = [MoviesDetails]()
+}
+
+struct MoviesDetails: Codable {
+    var title:  String?
+    var year:   Int?
+    var cast:   [String]?
+    var genres: [String]?
+    var rating: Int?
+}
