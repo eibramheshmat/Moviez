@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MoviesListViewController: UIViewController {
 
     var moviesList = MoviesModel()
     var itemSelecter = 0
@@ -57,13 +57,9 @@ class MainViewController: UIViewController {
 
 //MARK:- TableView of Movies
 
-extension MainViewController: UITableViewDelegate, UITableViewDataSource{
+extension MoviesListViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.moviesList.movies.count > 0{
-            return self.moviesList.movies.count
-        }else{
-            return 0
-        }
+            return moviesList.movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

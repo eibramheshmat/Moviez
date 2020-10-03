@@ -15,7 +15,7 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var movieCast: UILabel!
     @IBOutlet weak var movieGeners: UILabel!
     
-    var movie = MoviesDetails()
+    var movie = SortedMovies()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +24,10 @@ class MovieDetailsViewController: UIViewController {
     }
     
     private func fillData(){
-        self.movieTitle.text = movie.title
-        self.movieYear.text = "Year: "+"\(movie.year ?? 0)"
-        self.movieCast.text = returnStringFromArr(arrString: movie.cast ?? [])
-        self.movieGeners.text = returnStringFromArr(arrString: movie.genres ?? [])
+//        self.movieTitle.text = movie.title
+//        self.movieYear.text = "Year: "+"\(movie.year ?? 0)"
+//        self.movieCast.text = returnStringFromArr(arrString: movie.cast ?? [])
+//        self.movieGeners.text = returnStringFromArr(arrString: movie.genres ?? [])
     }
 
     func returnStringFromArr(arrString: [String]) -> String{

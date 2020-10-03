@@ -14,8 +14,13 @@ struct MoviesModel: Codable {
 
 struct MoviesDetails: Codable {
     var title:  String?
-    var year:   Int?
+    var year:   Int = 0
     var cast:   [String]?
     var genres: [String]?
-    var rating: Int?
+    var rating: Int = 0
+}
+
+struct SortedMovies {
+    var year: Int = 0
+    var movies: [MoviesDetails] = [MoviesDetails]()
 }
