@@ -30,21 +30,21 @@ class MovieDetailsViewController: UIViewController {
 //        self.movieGeners.text = returnStringFromArr(arrString: movie.genres ?? [])
     }
 
-    func returnStringFromArr(arrString: [String]) -> String{
-        if arrString.count > 0{
-            var returnString = ""
-            for index in 0..<arrString.count{
-                if returnString == ""{
-                    returnString =  arrString[index]
-                }else{
-                    returnString = returnString + ", " + arrString[index]
-                }
-            }
-            return returnString
-        }else{
-            return "No Data available"
-        }
-    }
+//    func returnStringFromArr(arrString: [String]) -> String{
+//        if arrString.count > 0{
+//            var returnString = ""
+//            for index in 0..<arrString.count{
+//                if returnString == ""{
+//                    returnString =  arrString[index]
+//                }else{
+//                    returnString = returnString + ", " + arrString[index]
+//                }
+//            }
+//            return returnString
+//        }else{
+//            return "No Data available"
+//        }
+//    }
     
     
 }
