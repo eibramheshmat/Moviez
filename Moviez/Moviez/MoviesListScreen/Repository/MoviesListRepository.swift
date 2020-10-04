@@ -28,10 +28,8 @@ class MoviesListRepository {
                 return jsonData
             }
         } catch {
-            print(error)
             getError?(error.localizedDescription)
         }
-        
         return nil
     }
     

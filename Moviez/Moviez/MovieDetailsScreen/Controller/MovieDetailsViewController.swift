@@ -47,11 +47,10 @@ class MovieDetailsViewController: BaseViewController {
                 
                 self?.movieImagesCollectionView.reloadData()
             }
-            
         }
         
         viewModel.getErrorObserver = { [weak self] (error) in
-            self?.showAlert()
+            self?.showAlert(message: "Error about get remote data")
         }
     }
     
@@ -77,6 +76,11 @@ class MovieDetailsViewController: BaseViewController {
 //MARK:-UICollectioView DataSource
 extension MovieDetailsViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if viewModel.movieImages.photos.photo.isEmpty{
+            collectionView.setEmptyView(title: "Sorry! No Images Found", message: "Please try it later or try another movie", image: #imageLiteral(resourceName: "nodata"))
+        }else{
+            collectionView.restore()
+        }
         return viewModel.movieImages.photos.photo.count
     }
     

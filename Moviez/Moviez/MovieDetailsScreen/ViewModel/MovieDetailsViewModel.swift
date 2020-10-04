@@ -32,5 +32,10 @@ class MovieDetailsViewModel: BaseViewModel{
         movieDetailsRepository.getImageFromAPIObserver = { [weak self] (movieImagesData) in
             self?.movieImages = movieImagesData
         }
+        
+        movieDetailsRepository.getErrorObserver = { [weak self] (error) in
+            self?.getErrorObserver?(error)
+            
+        }
     }
 }

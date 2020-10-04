@@ -31,6 +31,10 @@ class MoviesListViewModel {
             self?.sortMovies(movies: movieList)
             self?.getMoviesListObserver?()
         }
+        
+        moviesListRepository.getError = { [weak self] (error) in
+            self?.getError?(error)
+        }
     }
     
     private func sortMovies(movies: MoviesModel){

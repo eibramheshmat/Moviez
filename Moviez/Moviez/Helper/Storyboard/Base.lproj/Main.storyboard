@@ -133,7 +133,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photo about movie from Flickr:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iTu-rR-bF1">
-                                <rect key="frame" x="16" y="311" width="382" height="21"/>
+                                <rect key="frame" x="16" y="311" width="267" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="IDn-gM-pV4"/>
                                 </constraints>
@@ -141,6 +141,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" image="flickr" translatesAutoresizingMaskIntoConstraints="NO" id="f8Y-W4-rP0">
+                                <rect key="frame" x="293" y="311" width="79" height="21"/>
+                            </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Q2Q-2x-gBX">
                                 <rect key="frame" x="0.0" y="352" width="414" height="544"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -169,6 +172,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1dH-8e-SqU" firstAttribute="top" secondItem="tmT-Oq-Bcb" secondAttribute="bottom" constant="30" id="07t-bY-7et"/>
+                            <constraint firstItem="f8Y-W4-rP0" firstAttribute="leading" secondItem="iTu-rR-bF1" secondAttribute="trailing" constant="10" id="1Oq-2x-gP0"/>
                             <constraint firstItem="1dH-8e-SqU" firstAttribute="leading" secondItem="tmT-Oq-Bcb" secondAttribute="leading" id="1nR-dH-w8v"/>
                             <constraint firstItem="O7j-DG-DK2" firstAttribute="trailing" secondItem="Q2Q-2x-gBX" secondAttribute="trailing" id="2BY-QO-wYa"/>
                             <constraint firstAttribute="bottom" secondItem="Q2Q-2x-gBX" secondAttribute="bottom" id="61o-rC-KF7"/>
@@ -179,15 +183,17 @@
                             <constraint firstItem="9eg-0U-pyg" firstAttribute="trailing" secondItem="6A3-Vr-EN5" secondAttribute="trailing" id="A8F-0L-cEB"/>
                             <constraint firstItem="O7j-DG-DK2" firstAttribute="trailing" secondItem="tmT-Oq-Bcb" secondAttribute="trailing" constant="16" id="J59-oT-b0g"/>
                             <constraint firstItem="05T-EW-Uhk" firstAttribute="top" secondItem="tmT-Oq-Bcb" secondAttribute="bottom" constant="30" id="J9l-K3-hDl"/>
+                            <constraint firstItem="f8Y-W4-rP0" firstAttribute="bottom" secondItem="iTu-rR-bF1" secondAttribute="bottom" id="MTf-T4-2bM"/>
                             <constraint firstItem="iTu-rR-bF1" firstAttribute="top" secondItem="qd6-c6-85f" secondAttribute="bottom" constant="20" id="Oot-JU-ftm"/>
                             <constraint firstItem="hlX-tv-n4D" firstAttribute="trailing" secondItem="9eg-0U-pyg" secondAttribute="trailing" id="Q1M-HO-nFS"/>
-                            <constraint firstItem="iTu-rR-bF1" firstAttribute="trailing" secondItem="qd6-c6-85f" secondAttribute="trailing" id="SWZ-BK-bWr"/>
                             <constraint firstItem="05T-EW-Uhk" firstAttribute="leading" secondItem="1dH-8e-SqU" secondAttribute="trailing" constant="10" id="Tvf-di-6uh"/>
                             <constraint firstItem="Q2Q-2x-gBX" firstAttribute="leading" secondItem="O7j-DG-DK2" secondAttribute="leading" id="VVA-Kh-S7V"/>
                             <constraint firstItem="tmT-Oq-Bcb" firstAttribute="top" secondItem="O7j-DG-DK2" secondAttribute="top" constant="20" id="Vo8-IN-0Zv"/>
                             <constraint firstItem="hlX-tv-n4D" firstAttribute="leading" secondItem="9eg-0U-pyg" secondAttribute="leading" id="VoT-1n-W22"/>
+                            <constraint firstItem="f8Y-W4-rP0" firstAttribute="top" secondItem="iTu-rR-bF1" secondAttribute="top" id="gBO-AI-N3o"/>
                             <constraint firstItem="6A3-Vr-EN5" firstAttribute="top" secondItem="1dH-8e-SqU" secondAttribute="bottom" constant="20" id="glR-D1-V3P"/>
                             <constraint firstItem="hlX-tv-n4D" firstAttribute="top" secondItem="9eg-0U-pyg" secondAttribute="bottom" constant="20" id="k8k-Ix-R9j"/>
+                            <constraint firstItem="O7j-DG-DK2" firstAttribute="trailing" secondItem="f8Y-W4-rP0" secondAttribute="trailing" constant="42" id="kRg-yQ-3jp"/>
                             <constraint firstItem="9eg-0U-pyg" firstAttribute="top" secondItem="6A3-Vr-EN5" secondAttribute="bottom" constant="10" id="lGX-dV-uhX"/>
                             <constraint firstItem="9eg-0U-pyg" firstAttribute="leading" secondItem="6A3-Vr-EN5" secondAttribute="leading" id="lva-VO-KdK"/>
                             <constraint firstItem="6A3-Vr-EN5" firstAttribute="leading" secondItem="1dH-8e-SqU" secondAttribute="leading" id="pHg-fL-Em9"/>
@@ -233,4 +239,7 @@
         </scene>
     </scenes>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+    <resources>
+        <image name="flickr" width="512" height="512"/>
+    </resources>
 </document>

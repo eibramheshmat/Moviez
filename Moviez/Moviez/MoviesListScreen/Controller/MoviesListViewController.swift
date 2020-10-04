@@ -30,7 +30,7 @@ class MoviesListViewController: BaseViewController {
         }
         
         viewModel.getError = { [weak self] (error) in
-            self?.showAlert()
+            self?.showAlert(message: "Error about get local data")
         }
     }
     
