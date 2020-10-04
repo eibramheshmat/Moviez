@@ -10,13 +10,14 @@ import Foundation
 
 class MoviesListRepository {
     
-    var didGetMoviesData: ((_ sortedMovies: [SortedMovies])->())?
+    var getLocalDataObserver: ((_ sortedMovies: MoviesModel)->())?
     var getError: ((_ error: String)->())?
-    var moviesCategoryList: [SortedMovies] = [SortedMovies]()
     
     func getLocalData() {
         guard let moviesData = readLocalFile(forName: "movies") else { return }
-        parse(jsonData: moviesData)
+        guard let moviesParsedData = parse(jsonData: moviesData) else { return }
+        getLocalDataObserver?(moviesParsedData)
+        
     }
     
     private func readLocalFile(forName name: String) -> Data? {
@@ -34,24 +35,16 @@ class MoviesListRepository {
         return nil
     }
     
-    private func parse(jsonData: Data) {
+    private func parse(jsonData: Data) ->  MoviesModel?{
         do {
             let decodedData = try JSONDecoder().decode(MoviesModel.self,from: jsonData)
-            sortMovies(movies: decodedData)
+            return decodedData
         } catch {
             print("decode error")
             getError?("decode error")
         }
+        return nil
     }
     
-    private func sortMovies(movies: MoviesModel){
-        var yearsSet: Set = Set<Int>()
-        movies.movies.forEach({ (movie) in
-            yearsSet.insert(movie.year)
-        })
-        yearsSet.sorted(by: >).forEach({ (year) in
-            moviesCategoryList.append(SortedMovies(year: year, movies: movies.movies.filter({$0.year == year})))
-        })
-        didGetMoviesData?(moviesCategoryList)
-    }
+    
 }

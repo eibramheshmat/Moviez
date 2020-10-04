@@ -18,10 +18,20 @@ class MoviesListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setObservers()
-        viewModel.didLoad()
+        setViewModelObservers()
+        viewModel.getMoviesList()
         setupUI()
         setupSearchBar()
+    }
+    
+    private func setViewModelObservers(){
+        viewModel.getMoviesListObserver = { [weak self] in
+            self?.moviesTableView.reloadData()
+        }
+        
+        viewModel.getError = { [weak self] (error) in
+            self?.showAlert()
+        }
     }
     
     private func setupUI(){
@@ -39,17 +49,6 @@ class MoviesListViewController: BaseViewController {
         searchController.hidesNavigationBarDuringPresentation = false
     }
     
-    private func setObservers(){
-        viewModel.didGetMovies = { [weak self] in
-            self?.moviesTableView.reloadData()
-        }
-        
-        viewModel.getError = { [weak self] (error) in
-            self?.showAlert()
-        }
-    }
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "goDetailsFromMain":
@@ -66,7 +65,7 @@ class MoviesListViewController: BaseViewController {
 extension MoviesListViewController: UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         if viewModel.customMoviesCategoryList.isEmpty{
-            tableView.setEmptyView(title: "No Movies", message: "Please enter another title", image: #imageLiteral(resourceName: "icons8-no-data-availible-96"))
+            tableView.setEmptyView(title: "Sorry! No Movies Found", message: "Please enter another movie name", image: #imageLiteral(resourceName: "nodata"))
         }else{
             tableView.restore()
         }

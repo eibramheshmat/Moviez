@@ -15,35 +15,47 @@ class MoviesListViewModel {
             filterMovies()
         }
     }
-    var didGetMovies: (()->())?
+    var getMoviesListObserver: (()->())?
     var getError: ((_ error: String)->())?
     var moviesListRepository = MoviesListRepository()
     var customMoviesCategoryList: [SortedMovies] = [SortedMovies]()
+    private var moviesCategoryList: [SortedMovies] = [SortedMovies]()
     
-    func didLoad(){
-        setObservers()
+    func getMoviesList(){
+        setRepositoryObservers()
         moviesListRepository.getLocalData()
     }
     
-    private func setObservers(){
-        moviesListRepository.didGetMoviesData = { [weak self] (sortedMovies) in
-            self?.customMoviesCategoryList = sortedMovies
-            self?.didGetMovies?()
+    private func setRepositoryObservers(){
+        moviesListRepository.getLocalDataObserver = { [weak self] (movieList) in
+            self?.sortMovies(movies: movieList)
+            self?.getMoviesListObserver?()
         }
+    }
+    
+    private func sortMovies(movies: MoviesModel){
+        var yearsSet: Set = Set<Int>()
+        movies.movies.forEach({ (movie) in
+            yearsSet.insert(movie.year)
+        })
+        yearsSet.sorted(by: >).forEach({ (year) in
+            moviesCategoryList.append(SortedMovies(year: year, movies: movies.movies.filter({$0.year == year})))
+        })
+        self.customMoviesCategoryList = moviesCategoryList
     }
     
     private func filterMovies(){
         guard !searchText.trimmingCharacters(in: .whitespaces).isEmpty else {
-            customMoviesCategoryList = moviesListRepository.moviesCategoryList
-            didGetMovies?()
+            customMoviesCategoryList = moviesCategoryList
+            getMoviesListObserver?()
             return
         }
         customMoviesCategoryList.removeAll()
-        moviesListRepository.moviesCategoryList.forEach({(category) in
+        moviesCategoryList.forEach({(category) in
             let movies = category.movies.filter({($0.title?.lowercased().contains(searchText.lowercased())) ?? false}).sorted(by: {$0.rating > $1.rating})
             guard !movies.isEmpty else { return }
             customMoviesCategoryList.append(SortedMovies(year: category.year, movies: movies))
         })
-        didGetMovies?()
+        getMoviesListObserver?()
     }
 }
