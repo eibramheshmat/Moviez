@@ -8,22 +8,29 @@
 
 import Foundation
 
-class MovieDetailsViewModel {
+class MovieDetailsViewModel: BaseViewModel{
     
+    var movie = MovieDetails()
     var getImageObserver: (()->())?
     var getErrorObserver: ((_ error: String)->())?
     var movieDetailsRepository = MovieDetailsRepository()
-    var movieImages = MovieImagesModel()
-
-    func getImageFromFlickr(movieName: String){
+    var movieImages = MovieImagesModel(){
+        didSet{
+            getImageObserver?()
+            loading?(false)
+        }
+    }
+    
+    func getImageFromFlickr(){
+        guard let movieName = movie.title else { return }
         setRepositoryObserver()
+        loading?(true)
         movieDetailsRepository.getDataFromAPI(movieName: movieName)
     }
-
+    
     private func setRepositoryObserver(){
         movieDetailsRepository.getImageFromAPIObserver = { [weak self] (movieImagesData) in
             self?.movieImages = movieImagesData
-            self?.getImageObserver?()
         }
     }
 }

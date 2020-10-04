@@ -10,7 +10,7 @@ import UIKit
 import Cosmos
 
 class MovieDetailsViewController: BaseViewController {
-
+    
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var movieYear: UILabel!
     @IBOutlet weak var movieRating: CosmosView!
@@ -18,25 +18,33 @@ class MovieDetailsViewController: BaseViewController {
     @IBOutlet weak var movieGeners: UILabel!
     @IBOutlet weak var movieImagesCollectionView: UICollectionView!
     
-    var movie = MovieDetails()
     var viewModel = MovieDetailsViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Loading.shared.show()
+        
         setViewModelObservers()
-        if let movieName = movie.title{
-            viewModel.getImageFromFlickr(movieName: movieName)
-        }
-        setupUI()
         registerCells()
+        viewModel.getImageFromFlickr()
         fillData()
+        setupUI()
     }
     
     private func setViewModelObservers(){
+        
+        viewModel.loading = {(isLoad) in
+            DispatchQueue.main.async {
+                if isLoad{
+                    Loading.shared.show()
+                }else{
+                    Loading.shared.hide()
+                }
+            }
+        }
+        
         viewModel.getImageObserver = { [weak self] in
             DispatchQueue.main.async {
-                Loading.shared.hide()
+                
                 self?.movieImagesCollectionView.reloadData()
             }
             
@@ -47,11 +55,16 @@ class MovieDetailsViewController: BaseViewController {
         }
     }
     
+    private func setupUI(){
+        movieImagesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+    }
+    
     private func registerCells(){
         movieImagesCollectionView.register(UINib(nibName: "MovieImagesCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieImagesCollectionViewCell")
     }
     
     private func fillData(){
+        let movie = viewModel.movie
         movieTitle.text = movie.title
         movieYear.text = "Year: \(movie.year)"
         movieRating.rating = Double(movie.rating)
@@ -59,10 +72,6 @@ class MovieDetailsViewController: BaseViewController {
         movieCast.text = movie.cast?.joined(separator:", ")
         movieGeners.text = movie.genres?.joined(separator:", ")
     }
-    
-    private func setupUI(){
-    }
-    
 }
 
 //MARK:-UICollectioView DataSource
@@ -76,11 +85,24 @@ extension MovieDetailsViewController: UICollectionViewDataSource{
         cell.setImage(imageObject: viewModel.movieImages.photos.photo[indexPath.row])
         return cell
     }
-    
-    
 }
 
-//MARK:-UICollectioView Delegate
-extension MovieDetailsViewController: UICollectionViewDelegate{
+//MARK:-UICollectioView DelegateFlowLayout
+extension MovieDetailsViewController: UICollectionViewDelegateFlowLayout{
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width:  collectionView.bounds.width - 48, height: collectionView.bounds.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
+    }
 }

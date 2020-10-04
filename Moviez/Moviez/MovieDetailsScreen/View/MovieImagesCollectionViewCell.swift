@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MovieImagesCollectionViewCell: UICollectionViewCell {
 
@@ -14,20 +15,11 @@ class MovieImagesCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        movieImage.layer.cornerRadius = 8
     }
     
     func setImage(imageObject: PhotoObject){
         let imageURL = "https://live.staticflickr.com/\(imageObject.server ?? "")/\(imageObject.id ?? "")_\(imageObject.secret ?? "").jpg"
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: URL(string: imageURL)!) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.movieImage.image = image
-                    }
-                }
-            }
-        }
+        movieImage.kf.setImage(with: URL(string: imageURL))
     }
-
 }

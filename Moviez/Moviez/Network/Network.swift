@@ -58,7 +58,7 @@ class Network{
             case .get:
                 //                print(parameters)
                 let queryParameters = parameters.queryString
-                request = URLRequest(url: URL(string: Bundle.main.baseURL + APIName + "?"+queryParameters)!)
+                request = URLRequest(url: URL(string: Bundle.main.baseURL + APIName + "?"+queryParameters.replacingOccurrences(of: " ", with: "%20"))!)
             }
         }
         else {

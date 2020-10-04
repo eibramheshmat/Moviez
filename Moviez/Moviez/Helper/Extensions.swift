@@ -48,6 +48,14 @@ extension Bundle {
     }
 }
 
+// MARK: -convert Encodable Struct to Json extensions
+extension Encodable {
+    var dictionary: [String: Any]? {
+        guard let data = try? JSONEncoder().encode(self) else { return nil }
+        return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any] }
+    }
+}
+
 // MARK: -TableView extensions
 extension UITableView {
     func setEmptyView(title: String, message: String,image: UIImage? = nil) {

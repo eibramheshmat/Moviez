@@ -53,7 +53,7 @@ class MoviesListViewController: BaseViewController {
         switch segue.identifier {
         case "goDetailsFromMain":
             if let viewControllerDestination = segue.destination as? MovieDetailsViewController, let movie = sender as? MovieDetails {
-                viewControllerDestination.movie = movie
+                viewControllerDestination.viewModel.movie = movie
             }
         default:
             break
