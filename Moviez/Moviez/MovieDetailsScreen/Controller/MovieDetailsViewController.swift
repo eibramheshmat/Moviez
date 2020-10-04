@@ -27,7 +27,6 @@ class MovieDetailsViewController: BaseViewController {
         registerCells()
         viewModel.getImageFromFlickr()
         fillData()
-        setupUI()
     }
     
     private func setViewModelObservers(){
@@ -52,10 +51,6 @@ class MovieDetailsViewController: BaseViewController {
         viewModel.getErrorObserver = { [weak self] (error) in
             self?.showAlert(message: "Error about get remote data")
         }
-    }
-    
-    private func setupUI(){
-        movieImagesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
     }
     
     private func registerCells(){
@@ -99,11 +94,11 @@ extension MovieDetailsViewController: UICollectionViewDelegateFlowLayout{
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width:  collectionView.bounds.width - 48, height: collectionView.bounds.height)
+        return CGSize(width:  (collectionView.bounds.width / 2 ) - 16, height: 100)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return 16
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
