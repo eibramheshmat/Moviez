@@ -38,6 +38,16 @@ extension Dictionary {
     }
 }
 
+// MARK: -Bundle extensions
+extension Bundle {
+    var baseURL: String{
+        return object(forInfoDictionaryKey: "BaseURL") as? String ?? ""
+    }
+    var appKey: String{
+        return object(forInfoDictionaryKey: "APPKey") as? String ?? ""
+    }
+}
+
 // MARK: -TableView extensions
 extension UITableView {
     func setEmptyView(title: String, message: String,image: UIImage? = nil) {

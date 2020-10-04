@@ -53,24 +53,24 @@ class Network{
         if let parameters = parameters {
             switch method{
             case .post, .delete:
-                request = URLRequest(url: URL(string: Constants.baseUrl + APIName)!)
+                request = URLRequest(url: URL(string: Bundle.main.baseURL + APIName)!)
                 request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
             case .get:
                 //                print(parameters)
                 let queryParameters = parameters.queryString
-                request = URLRequest(url: URL(string: Constants.baseUrl + APIName + "?"+queryParameters)!)
+                request = URLRequest(url: URL(string: Bundle.main.baseURL + APIName + "?"+queryParameters)!)
             }
         }
         else {
             
             // replace spaces
             let apiName = APIName.replacingOccurrences(of: " ", with: "%20")
-            if let url = URL(string: Constants.baseUrl + apiName){
+            if let url = URL(string: Bundle.main.baseURL + apiName){
                 request = URLRequest(url: url)
             }
             else {
                 let safeUrl = APIName.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) ?? ""
-                if let url = URL(string: Constants.baseUrl + safeUrl) {
+                if let url = URL(string: Bundle.main.baseURL + safeUrl) {
                     request = URLRequest(url: url)
                 }
             }

@@ -13,7 +13,7 @@ class MovieDetailsRepository {
     var getErrorObserver: ((_ error: String)->())?
 
     func getDataFromAPI(movieName: String){
-        Network.shared.makeHttpRequest(model: MovieImagesModel(), method: .get, APIName: "", parameters: ["api_key":Constants.app_key,"method":"flickr.photos.search","format":"json","nojsoncallback":"1","text":movieName]) { (result) in
+        Network.shared.makeHttpRequest(model: MovieImagesModel(), method: .get, APIName: "", parameters: ["api_key":Bundle.main.appKey,"method":"flickr.photos.search","format":"json","nojsoncallback":"1","text":movieName]) { (result) in
             switch result{
             case .success(let response):
                 self.getImageFromAPIObserver?(response)
