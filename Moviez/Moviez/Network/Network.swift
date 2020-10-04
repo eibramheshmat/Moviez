@@ -56,9 +56,10 @@ class Network{
                 request = URLRequest(url: URL(string: Constants.baseUrl + APIName)!)
                 request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
             case .get:
-                //                print(parameters)
+//                                print(parameters)
                 let queryParameters = parameters.queryString
                 request = URLRequest(url: URL(string: Constants.baseUrl + APIName + "?"+queryParameters)!)
+                                print(request.url ?? "")
             }
         }
         else {

@@ -8,7 +8,6 @@
 
 import UIKit
 class Constants{
-    static var app_id = "89193820"
-    static var app_key = "b0c4f8afaa13f79ee3219775e0d90d23"
-    static var baseUrl = "https://api.edamam.com/search"
+    static var app_key = "a660fc0623c959626c70d73b05370eeb"
+    static var baseUrl = "https://api.flickr.com/services/rest/"
 }

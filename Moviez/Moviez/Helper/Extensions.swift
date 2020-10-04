@@ -38,6 +38,7 @@ extension Dictionary {
     }
 }
 
+
 // MARK: -TableView extensions
 extension UITableView {
     func setEmptyView(title: String, message: String,image: UIImage? = nil) {
