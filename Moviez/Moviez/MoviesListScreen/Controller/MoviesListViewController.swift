@@ -52,8 +52,8 @@ class MoviesListViewController: BaseViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "goDetailsFromMain":
-            if let viewControllerDestination = segue.destination as? MovieDetailsViewController, let index = sender as? Int {
-                //                viewControllerDestination.movie = self.moviesList.movies[index]
+            if let viewControllerDestination = segue.destination as? MovieDetailsViewController, let movie = sender as? MovieDetails {
+                viewControllerDestination.movie = movie
             }
         default:
             break
@@ -95,7 +95,7 @@ extension MoviesListViewController: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goDetailsFromMain", sender: indexPath.row)
+        performSegue(withIdentifier: "goDetailsFromMain", sender: viewModel.customMoviesCategoryList[indexPath.section].movies[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
         
     }

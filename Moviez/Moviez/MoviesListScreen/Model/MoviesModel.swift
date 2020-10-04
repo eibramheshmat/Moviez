@@ -9,10 +9,10 @@
 import Foundation
 
 struct MoviesModel: Codable {
-    var movies = [MoviesDetails]()
+    var movies = [MovieDetails]()
 }
 
-struct MoviesDetails: Codable {
+struct MovieDetails: Codable {
     var title:  String?
     var year:   Int = 0
     var cast:   [String]?
@@ -22,5 +22,5 @@ struct MoviesDetails: Codable {
 
 struct SortedMovies {
     var year: Int = 0
-    var movies: [MoviesDetails] = [MoviesDetails]()
+    var movies: [MovieDetails] = [MovieDetails]()
 }
