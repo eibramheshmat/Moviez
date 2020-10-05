@@ -19,7 +19,7 @@ class MovieImagesCollectionViewCell: UICollectionViewCell {
     }
     
     func setImage(imageObject: PhotoObject){
-        let imageURL = "https://live.staticflickr.com/\(imageObject.server ?? "")/\(imageObject.id ?? "")_\(imageObject.secret ?? "").jpg"
+        let imageURL = "\(Constants.imageLiveURL)\(imageObject.server ?? "")/\(imageObject.id ?? "")_\(imageObject.secret ?? "").jpg" /// for set live image url to show 
         movieImage.kf.setImage(with: URL(string: imageURL))
     }
 }

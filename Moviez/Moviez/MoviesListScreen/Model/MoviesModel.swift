@@ -24,3 +24,8 @@ struct SortedMovies {
     var year: Int = 0
     var movies: [MovieDetails] = [MovieDetails]()
 }
+
+struct Response<T> {
+    var data: T?
+    var error: String?
+}

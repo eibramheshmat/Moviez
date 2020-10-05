@@ -43,7 +43,6 @@ class MovieDetailsViewController: BaseViewController {
         
         viewModel.getImageObserver = { [weak self] in
             DispatchQueue.main.async {
-                
                 self?.movieImagesCollectionView.reloadData()
             }
         }
@@ -71,6 +70,7 @@ class MovieDetailsViewController: BaseViewController {
 //MARK:-UICollectioView DataSource
 extension MovieDetailsViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        /// if no data this will show no data image
         if viewModel.movieImages.photos.photo.isEmpty{
             collectionView.setEmptyView(title: "Sorry! No Images Found", message: "Please try it later or try another movie", image: #imageLiteral(resourceName: "nodata"))
         }else{
@@ -94,11 +94,11 @@ extension MovieDetailsViewController: UICollectionViewDelegateFlowLayout{
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width:  (collectionView.bounds.width / 2 ) - 16, height: 100)
+        return CGSize(width:  (collectionView.bounds.width / 2 ) - 8, height: 100)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 16
+        return 8
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

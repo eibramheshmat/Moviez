@@ -9,17 +9,11 @@
 import UIKit
 
 class BaseViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
     
+    /* This method to show alert in all view controllers */
     func showAlert(message: String){
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
-
 }

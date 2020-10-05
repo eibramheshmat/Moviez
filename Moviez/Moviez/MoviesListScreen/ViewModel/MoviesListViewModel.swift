@@ -8,15 +8,14 @@
 
 import Foundation
 
-class MoviesListViewModel {
+class MoviesListViewModel: BaseViewModel{
     
     var searchText: String = ""{
         didSet{
-            filterMovies()
+            filterMovies() /// when search txt didset filter method called for live search
         }
     }
     var getMoviesListObserver: (()->())?
-    var getError: ((_ error: String)->())?
     var moviesListRepository = MoviesListRepository()
     var customMoviesCategoryList: [SortedMovies] = [SortedMovies]()
     private var moviesCategoryList: [SortedMovies] = [SortedMovies]()
@@ -27,16 +26,18 @@ class MoviesListViewModel {
     }
     
     private func setRepositoryObservers(){
-        moviesListRepository.getLocalDataObserver = { [weak self] (movieList) in
-            self?.sortMovies(movies: movieList)
-            self?.getMoviesListObserver?()
-        }
-        
-        moviesListRepository.getError = { [weak self] (error) in
-            self?.getError?(error)
+        moviesListRepository.getLocalDataObserver = { [weak self] (response) in
+            if let data = response.data{
+                self?.sortMovies(movies: data)
+                self?.getMoviesListObserver?()
+            }
+            if let error = response.error{
+                self?.getErrorObserver?(error)
+            }
         }
     }
     
+    /* this method sort movies from db to year and movies style and use set of years to unrepated values */
     private func sortMovies(movies: MoviesModel){
         var yearsSet: Set = Set<Int>()
         movies.movies.forEach({ (movie) in
@@ -49,17 +50,20 @@ class MoviesListViewModel {
     }
     
     private func filterMovies(){
-        guard !searchText.trimmingCharacters(in: .whitespaces).isEmpty else {
-            customMoviesCategoryList = moviesCategoryList
+        guard searchText.trimmingCharacters(in: .whitespaces).isEmpty else {
+            customMoviesCategoryList.removeAll()
+            moviesCategoryList.forEach({(category) in
+                let movies = category.movies.filter({($0.title?.lowercased().contains(searchText.lowercased())) ?? false}).sorted(by: {$0.rating > $1.rating})
+                /// for each category (Year) filter movie which contain my search after that sorted it based on rating.
+                guard movies.isEmpty else {
+                    customMoviesCategoryList.append(SortedMovies(year: category.year, movies: movies))
+                    return
+                }
+            })
             getMoviesListObserver?()
             return
         }
-        customMoviesCategoryList.removeAll()
-        moviesCategoryList.forEach({(category) in
-            let movies = category.movies.filter({($0.title?.lowercased().contains(searchText.lowercased())) ?? false}).sorted(by: {$0.rating > $1.rating})
-            guard !movies.isEmpty else { return }
-            customMoviesCategoryList.append(SortedMovies(year: category.year, movies: movies))
-        })
+        customMoviesCategoryList = moviesCategoryList
         getMoviesListObserver?()
     }
 }

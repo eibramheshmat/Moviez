@@ -19,7 +19,6 @@ struct PhotosObject: Codable {
     var total: String?
     var photo = [PhotoObject]()
 }
-
 struct PhotoObject: Codable {
     var id: String?
     var secret: String?
@@ -35,7 +34,7 @@ struct PhotoRequestParams: Codable{
     
     enum CodingKeys: String , CodingKey {
         case apiKey = "api_key"
-        case method , format , nojsoncallback , text
+        case method, format, nojsoncallback, text
     }
 }
 
