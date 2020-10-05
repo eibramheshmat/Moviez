@@ -12,7 +12,6 @@ class MovieDetailsViewModel: BaseViewModel{
     
     var movie = MovieDetails()
     var getImageObserver: (()->())?
-    var getErrorObserver: ((_ error: String)->())?
     var movieDetailsRepository = MovieDetailsRepository()
     var movieImages = MovieImagesModel(){
         didSet{
@@ -29,13 +28,14 @@ class MovieDetailsViewModel: BaseViewModel{
     }
     
     private func setRepositoryObserver(){
-        movieDetailsRepository.getImageFromAPIObserver = { [weak self] (movieImagesData) in
-            self?.movieImages = movieImagesData
-        }
-        
-        movieDetailsRepository.getErrorObserver = { [weak self] (error) in
-            self?.getErrorObserver?(error)
-            
+        movieDetailsRepository.getImageFromAPIObserver = { [weak self] (response) in
+            if let data = response.data{
+                self?.movieImages = data
+            }
+            if let error = response.error{
+                self?.getErrorObserver?(error)
+                self?.loading?(false)
+            }
         }
     }
 }

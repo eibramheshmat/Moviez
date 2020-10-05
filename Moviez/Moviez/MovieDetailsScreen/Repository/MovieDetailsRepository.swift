@@ -9,17 +9,15 @@
 import Foundation
 
 class MovieDetailsRepository {
-    var getImageFromAPIObserver: ((_ movieImagesData: MovieImagesModel)->())?
-    var getErrorObserver: ((_ error: String)->())?
+    var getImageFromAPIObserver: ((_ movieImagesData: Response<MovieImagesModel>)->())?
 
     func getDataFromAPI(movieName: String){
-        let paramsData = PhotoRequestParams(apiKey: Bundle.main.appKey, method: "flickr.photos.search", format: "json", nojsoncallback: "1",text: movieName+" movie")
-        Network.shared.makeHttpRequest(model: MovieImagesModel(), method: .get, APIName: "", parameters: paramsData.dictionary) { (result) in
+        Network.shared.request(router: Router.getMovieImages(movieName: movieName), model: MovieImagesModel()) { (result) in
             switch result{
-            case .success(let response):
-                self.getImageFromAPIObserver?(response)
+            case .success(let responseData):
+                self.getImageFromAPIObserver?(Response(data: responseData, error: nil))
             case .failure(let error):
-                self.getErrorObserver?(error.errorDescription ?? "Network Error")
+                self.getImageFromAPIObserver?(Response(data: nil, error: error.errorDescription))
             }
         }
     }

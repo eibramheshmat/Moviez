@@ -27,6 +27,9 @@
 		04415C57252766B600377393 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04415C55252766B600377393 /* LoadingView.swift */; };
 		04415C5A25276AAF00377393 /* movies.json in Resources */ = {isa = PBXBuildFile; fileRef = 04415C5925276AAF00377393 /* movies.json */; };
 		04415C6225277B4400377393 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04415C6125277B4400377393 /* MovieDetailsViewController.swift */; };
+		04B417D6252B495100755DE5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B417D5252B495100755DE5 /* Constants.swift */; };
+		04B417D8252B4BAB00755DE5 /* ErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B417D7252B4BAB00755DE5 /* ErrorType.swift */; };
+		04B417DA252B4C6D00755DE5 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B417D9252B4C6D00755DE5 /* Router.swift */; };
 		04FFEE2B252A33B60013127B /* MovieImagesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04FFEE29252A33B60013127B /* MovieImagesCollectionViewCell.xib */; };
 		04FFEE2C252A33B60013127B /* MovieImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE2A252A33B60013127B /* MovieImagesCollectionViewCell.swift */; };
 		04FFEE2E252A33E70013127B /* MovieImagesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE2D252A33E70013127B /* MovieImagesModel.swift */; };
@@ -79,6 +82,9 @@
 		04415C55252766B600377393 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		04415C5925276AAF00377393 /* movies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = movies.json; sourceTree = "<group>"; };
 		04415C6125277B4400377393 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
+		04B417D5252B495100755DE5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		04B417D7252B4BAB00755DE5 /* ErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorType.swift; sourceTree = "<group>"; };
+		04B417D9252B4C6D00755DE5 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		04FFEE29252A33B60013127B /* MovieImagesCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieImagesCollectionViewCell.xib; sourceTree = "<group>"; };
 		04FFEE2A252A33B60013127B /* MovieImagesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieImagesCollectionViewCell.swift; sourceTree = "<group>"; };
 		04FFEE2D252A33E70013127B /* MovieImagesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieImagesModel.swift; sourceTree = "<group>"; };
@@ -301,6 +307,9 @@
 			isa = PBXGroup;
 			children = (
 				04415C4D2527664300377393 /* Network.swift */,
+				04B417D9252B4C6D00755DE5 /* Router.swift */,
+				04B417D7252B4BAB00755DE5 /* ErrorType.swift */,
+				04B417D5252B495100755DE5 /* Constants.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -597,11 +606,14 @@
 				04FFEE2C252A33B60013127B /* MovieImagesCollectionViewCell.swift in Sources */,
 				043EB17A2529FE0100689696 /* MovieDetailsViewModel.swift in Sources */,
 				04FFEE2E252A33E70013127B /* MovieImagesModel.swift in Sources */,
+				04B417DA252B4C6D00755DE5 /* Router.swift in Sources */,
 				043EB1682529228800689696 /* MoviesListViewModel.swift in Sources */,
+				04B417D8252B4BAB00755DE5 /* ErrorType.swift in Sources */,
 				04415C4F2527664300377393 /* Network.swift in Sources */,
 				04415C6225277B4400377393 /* MovieDetailsViewController.swift in Sources */,
 				043EB1782529FDEE00689696 /* MovieDetailsRepository.swift in Sources */,
 				04415C57252766B600377393 /* LoadingView.swift in Sources */,
+				04B417D6252B495100755DE5 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

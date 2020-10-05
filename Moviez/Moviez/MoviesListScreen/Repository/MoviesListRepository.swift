@@ -10,16 +10,15 @@ import Foundation
 
 class MoviesListRepository {
     
-    var getLocalDataObserver: ((_ sortedMovies: MoviesModel)->())?
-    var getError: ((_ error: String)->())?
+    var getLocalDataObserver: ((_ response: Response<MoviesModel>)->())?
     
     func getLocalData() {
         guard let moviesData = readLocalFile(forName: "movies") else { return }
         guard let moviesParsedData = parse(jsonData: moviesData) else { return }
-        getLocalDataObserver?(moviesParsedData)
-        
+        getLocalDataObserver?(Response(data: moviesParsedData, error: nil))
     }
     
+    /* get data from file method */
     private func readLocalFile(forName name: String) -> Data? {
         do {
             if let bundlePath = Bundle.main.path(forResource: name,
@@ -28,18 +27,18 @@ class MoviesListRepository {
                 return jsonData
             }
         } catch {
-            getError?(error.localizedDescription)
+            getLocalDataObserver?(Response(data: nil, error: error.localizedDescription))
         }
         return nil
     }
     
+    /* parse data method */
     private func parse(jsonData: Data) ->  MoviesModel?{
         do {
             let decodedData = try JSONDecoder().decode(MoviesModel.self,from: jsonData)
             return decodedData
         } catch {
-            print("decode error")
-            getError?("decode error")
+            getLocalDataObserver?(Response(data: nil, error: "decode error"))
         }
         return nil
     }

@@ -29,7 +29,7 @@ class MoviesListViewController: BaseViewController {
             self?.moviesTableView.reloadData()
         }
         
-        viewModel.getError = { [weak self] (error) in
+        viewModel.getErrorObserver = { [weak self] (error) in
             self?.showAlert(message: "Error about get local data")
         }
     }
@@ -64,6 +64,7 @@ class MoviesListViewController: BaseViewController {
 //MARK:- TableViewDataSource of Movies
 extension MoviesListViewController: UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
+        /// if no data will display no found image.
         if viewModel.customMoviesCategoryList.isEmpty{
             tableView.setEmptyView(title: "Sorry! No Movies Found", message: "Please enter another movie name", image: #imageLiteral(resourceName: "nodata"))
         }else{
@@ -78,8 +79,9 @@ extension MoviesListViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "movieCell")
+        /// use default cell cause we dont need just title to set which is default in tableviewcell
         cell.textLabel?.text = viewModel.customMoviesCategoryList[indexPath.section].movies[indexPath.row].title
-        cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.numberOfLines = 0 /// if word large resizable lable height
         return cell
     }
 }
@@ -95,23 +97,13 @@ extension MoviesListViewController: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goDetailsFromMain", sender: viewModel.customMoviesCategoryList[indexPath.section].movies[indexPath.row])
-        tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "goDetailsFromMain", sender: viewModel.customMoviesCategoryList[indexPath.section].movies[indexPath.row]) /// send movie object as sender
+        tableView.deselectRow(at: indexPath, animated: true) /// for when back there will no select cell highlight
         
     }
 }
 
-////MARK:- Actions
-extension MoviesListViewController{
-    
-    @IBAction func didStartSearch(_ sender: UIBarButtonItem) {
-        if (!viewModel.searchText.trimmingCharacters(in: .whitespaces).isEmpty){
-            searchController.searchBar.text = viewModel.searchText
-        }
-        self.present(searchController,animated: true, completion: nil)
-    }
-}
-
+//MARK:- UISearch Delegate
 extension MoviesListViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.searchText = searchText.trimmingCharacters(in: .whitespaces).isEmpty ? "" : searchText
@@ -123,5 +115,15 @@ extension MoviesListViewController: UISearchBarDelegate{
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         viewModel.searchText = ""
+    }
+}
+
+
+//MARK:- Actions
+extension MoviesListViewController{
+    
+    @IBAction func didStartSearch(_ sender: UIBarButtonItem) {
+        searchController.searchBar.text = viewModel.searchText.trimmingCharacters(in: .whitespaces).isEmpty ? "" : viewModel.searchText
+        self.present(searchController,animated: true, completion: nil)
     }
 }
