@@ -8,16 +8,16 @@
 
 import UIKit
 
-class MoviesListViewController: BaseViewController {
+class MoviesListViewController: BaseViewController<MoviesListViewModel> {
     
     @IBOutlet weak var moviesTableView: UITableView!
     
-    private var viewModel = MoviesListViewModel()
     private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel = MoviesListViewModel()
         setViewModelObservers()
         viewModel.getMoviesList()
         setupUI()
@@ -53,7 +53,7 @@ class MoviesListViewController: BaseViewController {
         switch segue.identifier {
         case "goDetailsFromMain":
             if let viewControllerDestination = segue.destination as? MovieDetailsViewController, let movie = sender as? MovieDetails {
-                viewControllerDestination.viewModel.movie = movie
+                viewControllerDestination.movie = movie
             }
         default:
             break

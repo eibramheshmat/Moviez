@@ -9,6 +9,6 @@ import Foundation
 
 class BaseViewModel{
     
-    var loading: ((_ isShow: Bool) -> ())? /// to listen about loading at all view controllers
+    var loading: ((_ isShow: Bool) -> ())?  /// to listen about loading at all view controllers
     var getErrorObserver: ((_ error: String)->())? /// to listen about error at all view controllers 
 }
