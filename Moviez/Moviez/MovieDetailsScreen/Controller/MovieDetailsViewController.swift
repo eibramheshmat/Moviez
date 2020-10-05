@@ -9,7 +9,7 @@
 import UIKit
 import Cosmos
 
-class MovieDetailsViewController: BaseViewController {
+class MovieDetailsViewController: BaseViewController<MovieDetailsViewModel> {
     
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var movieYear: UILabel!
@@ -18,28 +18,20 @@ class MovieDetailsViewController: BaseViewController {
     @IBOutlet weak var movieGeners: UILabel!
     @IBOutlet weak var movieImagesCollectionView: UICollectionView!
     
-    var viewModel = MovieDetailsViewModel()
+    var movie = MovieDetails()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel = MovieDetailsViewModel(movie: movie)
         setViewModelObservers()
-        registerCells()
         viewModel.getImageFromFlickr()
+        registerCells()
         fillData()
     }
     
     private func setViewModelObservers(){
-        
-        viewModel.loading = {(isLoad) in
-            DispatchQueue.main.async {
-                if isLoad{
-                    Loading.shared.show()
-                }else{
-                    Loading.shared.hide()
-                }
-            }
-        }
+        self.supscripLoadingState()
         
         viewModel.getImageObserver = { [weak self] in
             DispatchQueue.main.async {
@@ -57,7 +49,6 @@ class MovieDetailsViewController: BaseViewController {
     }
     
     private func fillData(){
-        let movie = viewModel.movie
         movieTitle.text = movie.title
         movieYear.text = "Year: \(movie.year)"
         movieRating.rating = Double(movie.rating)

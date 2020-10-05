@@ -10,7 +10,7 @@ import Foundation
 
 class MovieDetailsViewModel: BaseViewModel{
     
-    var movie = MovieDetails()
+    var movie: MovieDetails
     var getImageObserver: (()->())?
     var movieDetailsRepository = MovieDetailsRepository()
     var movieImages = MovieImagesModel(){
@@ -18,6 +18,10 @@ class MovieDetailsViewModel: BaseViewModel{
             getImageObserver?()
             loading?(false)
         }
+    }
+    /// dependency injection
+    init(movie: MovieDetails) {
+        self.movie = movie
     }
     
     func getImageFromFlickr(){

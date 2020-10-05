@@ -8,7 +8,21 @@
 
 import UIKit
 
-class BaseViewController: UIViewController {
+class BaseViewController<T: BaseViewModel>: UIViewController {
+    
+    var viewModel: T!
+    
+    func supscripLoadingState() {
+        viewModel.loading = {(isLoad) in
+            DispatchQueue.main.async {
+                if isLoad{
+                    Loading.shared.show()
+                }else{
+                    Loading.shared.hide()
+                }
+            }
+        }
+    }
     
     /* This method to show alert in all view controllers */
     func showAlert(message: String){
@@ -16,4 +30,6 @@ class BaseViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    
 }
